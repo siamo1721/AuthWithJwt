@@ -1,7 +1,7 @@
 package com.example.first.controller;
 
-import com.example.first.dto.request.UserDtoRequest;
-import com.example.first.dto.response.UserDtoResponse;
+import com.example.first.dto.register.request.UserDtoRequest;
+import com.example.first.dto.register.response.RegisterDtoResponse;
 import com.example.first.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +19,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<UserDtoResponse> register(@Valid @RequestBody UserDtoRequest dtoRequest) {
-        UserDtoResponse dtoResponse = authService.registerUser(dtoRequest);
+    public ResponseEntity<RegisterDtoResponse> register(@Valid @RequestBody UserDtoRequest dtoRequest) {
+        RegisterDtoResponse dtoResponse = authService.registerUser(dtoRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(dtoResponse);
     }
 }

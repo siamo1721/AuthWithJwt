@@ -1,6 +1,6 @@
 package com.example.first.service;
 
-import com.example.first.dto.response.UserDtoResponse;
+import com.example.first.dto.register.response.RegisterDtoResponse;
 import com.example.first.entity.User;
 import com.example.first.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,17 +14,17 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
-    public List<UserDtoResponse> getUsers() {
+    public List<RegisterDtoResponse> getUsers() {
         List<User> users =  userRepository.findAll();
-        List<UserDtoResponse> userDtoResponses = new ArrayList<>();
+        List<RegisterDtoResponse> registerDtoRespons = new ArrayList<>();
         for(User user : users){
-            UserDtoResponse dto = new UserDtoResponse();
+            RegisterDtoResponse dto = new RegisterDtoResponse();
             dto.setId(user.getId());
             dto.setUsername(user.getUsername());
             dto.setEmail(user.getEmail());
             dto.setRole(user.getRole());
-            userDtoResponses.add(dto);
+            registerDtoRespons.add(dto);
         }
-        return userDtoResponses;
+        return registerDtoRespons;
     }
 }

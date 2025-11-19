@@ -1,4 +1,4 @@
-package com.example.first.dto.request;
+package com.example.first.dto.register.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDtoRequest {
+public class RegisterDtoRequest {
     @NotBlank(message = "Это поле не должно быть пустым")
     @Email(message = "Неверный формат email")
     private String email;

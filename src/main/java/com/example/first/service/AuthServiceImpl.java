@@ -1,8 +1,8 @@
 package com.example.first.service;
 
 
-import com.example.first.dto.request.UserDtoRequest;
-import com.example.first.dto.response.UserDtoResponse;
+import com.example.first.dto.register.request.RegisterDtoRequest;
+import com.example.first.dto.register.response.RegisterDtoResponse;
 import com.example.first.entity.User;
 import com.example.first.entity.UserRole;
 import com.example.first.repository.UserRepository;
@@ -20,7 +20,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDtoResponse registerUser(UserDtoRequest dto) {
+    public RegisterDtoResponse registerUser(RegisterDtoRequest dto) {
         if (userRepository.existsByEmail(dto.getEmail())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists");
         }
@@ -34,12 +34,17 @@ public class AuthServiceImpl implements AuthService {
         user.setRole(UserRole.USER);
         User userSaved = userRepository.save(user);
 
-        UserDtoResponse dtoResponse = new UserDtoResponse();
+        RegisterDtoResponse dtoResponse = new RegisterDtoResponse();
         dtoResponse.setId(userSaved.getId());
         dtoResponse.setUsername(userSaved.getUsername());
         dtoResponse.setEmail(userSaved.getEmail());
         dtoResponse.setRole(userSaved.getRole());
 
         return dtoResponse;
+    }
+
+    @Override
+    public RegisterDtoResponse loginUser() {
+        return null;
     }
 }

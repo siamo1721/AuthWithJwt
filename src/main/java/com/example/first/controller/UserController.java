@@ -1,6 +1,6 @@
 package com.example.first.controller;
 
-import com.example.first.dto.response.UserDtoResponse;
+import com.example.first.dto.register.response.RegisterDtoResponse;
 import com.example.first.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<UserDtoResponse> getUsers() {
+    public List<RegisterDtoResponse> getUsers() {
         return userService.getUsers();
     }
 }
