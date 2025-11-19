@@ -1,6 +1,7 @@
 package com.example.first.service;
 
 
+import com.example.first.dto.login.request.LoginDtoRequest;
 import com.example.first.dto.register.request.RegisterDtoRequest;
 import com.example.first.dto.register.response.RegisterDtoResponse;
 import com.example.first.entity.User;
@@ -34,18 +35,20 @@ public class AuthServiceImpl implements AuthService {
         user.setRole(UserRole.USER);
         User userSaved = userRepository.save(user);
 
-        RegisterDtoResponse dtoResponse = new RegisterDtoResponse();
-        dtoResponse.setId(userSaved.getId());
-        dtoResponse.setUsername(userSaved.getUsername());
-        dtoResponse.setEmail(userSaved.getEmail());
-        dtoResponse.setRole(userSaved.getRole());
-
-        return dtoResponse;
+        return toDto(userSaved);
     }
 
     @Override
-    public RegisterDtoResponse loginUser() {
-        return null;
+    public RegisterDtoResponse loginUser(LoginDtoRequest dto) {
+        User user = userRepository.findByEmail(dto.getEmail());
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Email is not found");
+        }
+        if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Wrong Password");
+        }
+
+        return toDto(user);
     }
 
     private RegisterDtoResponse toDto(User user) {
