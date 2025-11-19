@@ -47,4 +47,13 @@ public class AuthServiceImpl implements AuthService {
     public RegisterDtoResponse loginUser() {
         return null;
     }
+
+    private RegisterDtoResponse toDto(User user) {
+        RegisterDtoResponse dtoResponse = new RegisterDtoResponse();
+        dtoResponse.setId(user.getId());
+        dtoResponse.setUsername(user.getUsername());
+        dtoResponse.setEmail(user.getEmail());
+        dtoResponse.setRole(user.getRole());
+        return dtoResponse;
+    }
 }
