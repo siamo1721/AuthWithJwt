@@ -11,4 +11,6 @@ public class RegisterDtoResponse {
     private String username;
     private String email;
     private UserRole role;
+    private String accessToken;
+    private String refreshToken;
 }

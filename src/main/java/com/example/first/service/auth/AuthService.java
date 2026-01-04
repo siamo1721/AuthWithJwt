@@ -1,4 +1,4 @@
-package com.example.first.service;
+package com.example.first.service.auth;
 
 import com.example.first.dto.login.request.LoginDtoRequest;
 import com.example.first.dto.register.request.RegisterDtoRequest;
