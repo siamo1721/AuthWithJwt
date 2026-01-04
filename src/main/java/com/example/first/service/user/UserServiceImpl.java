@@ -1,8 +1,9 @@
-package com.example.first.service;
+package com.example.first.service.user;
 
 import com.example.first.dto.register.response.RegisterDtoResponse;
 import com.example.first.entity.User;
 import com.example.first.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +17,19 @@ public class UserServiceImpl implements UserService {
 
     public List<RegisterDtoResponse> getUsers() {
         List<User> users =  userRepository.findAll();
-        List<RegisterDtoResponse> registerDtoRespons = new ArrayList<>();
+        List<RegisterDtoResponse> registerDtoResponse = new ArrayList<>();
         for(User user : users){
             RegisterDtoResponse dto = new RegisterDtoResponse();
             dto.setId(user.getId());
             dto.setUsername(user.getUsername());
             dto.setEmail(user.getEmail());
             dto.setRole(user.getRole());
-            registerDtoRespons.add(dto);
+            registerDtoResponse.add(dto);
         }
-        return registerDtoRespons;
+        return registerDtoResponse;
+    }
+    public User getUser(Long id){
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Нет user с id " + id));
     }
 }
