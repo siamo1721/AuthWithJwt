@@ -3,12 +3,14 @@ package com.example.first.controller;
 import com.example.first.dto.login.request.LoginDtoRequest;
 import com.example.first.dto.register.request.RegisterDtoRequest;
 import com.example.first.dto.register.response.RegisterDtoResponse;
+import com.example.first.security.UserCustomDetails;
 import com.example.first.service.auth.AuthService;
 import com.example.first.service.refresh.RefreshTokenService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,5 +35,11 @@ public class AuthController {
     @PostMapping("/refresh")
     public ResponseEntity<?> refresh(@RequestHeader("Authorization") String authHeader) {
         return ResponseEntity.ok(refreshTokenService.refresh(authHeader));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@AuthenticationPrincipal UserCustomDetails userCustomDetails) {
+        Long userId = userCustomDetails.getId();
+        return ResponseEntity.ok(authService.logoutUser(userId));
     }
 }
